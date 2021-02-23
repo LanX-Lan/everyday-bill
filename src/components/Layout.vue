@@ -3,7 +3,7 @@
     <div class="container">
       <slot/>
     </div>
-    <Nav />
+    <Nav/>
   </div>
 </template>
 
@@ -19,13 +19,14 @@
 
 <style lang="scss" scoped>
   .layout {
+    max-height: 100vh;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
   }
 
   .container {
-    border: 1px solid blue;
     flex-grow: 1;
+    overflow: auto;
   }
 </style>

@@ -5,12 +5,17 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/reset.scss';
+  @import '~@/assets/style/reset.scss';
+  @import '~@/assets/style/helper.scss';
 
   #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: $font-hei;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 16px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    background: #ffffff;
+    position: relative;
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div class="money">
+  <div>
     <Layout>
-      money
+      Bill
     </Layout>
   </div>
 </template>
@@ -9,14 +9,16 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
+  import Layout from '@/components/Layout.vue';
 
-  @Component
+  @Component({
+    components: {Layout}
+  })
   export default class Money extends Vue {
 
   }
 </script>
 
 <style lang="scss" scoped>
-
 
 </style>
