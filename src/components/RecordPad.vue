@@ -158,8 +158,6 @@
 
   .record-pad {
     overflow: auto;
-    position: relative;
-    width: 100%;
     flex-grow: 1;
 
     .record-item {

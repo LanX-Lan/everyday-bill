@@ -1,5 +1,11 @@
 <template>
   <div class="layout">
+    <div class="header">
+      <h3 class="title">
+        天天记账
+      </h3>
+      <slot name="header"/>
+    </div>
     <div class="container">
       <slot/>
     </div>
@@ -18,6 +24,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "~@/assets/style/helper.scss";
+
   .layout {
     max-height: 100vh;
     min-height: 100vh;
@@ -28,5 +36,17 @@
   .container {
     flex-grow: 1;
     overflow: auto;
+    /*position: relative;*/
+  }
+
+  .title {
+    text-align: center;
+    padding: 10px 0;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .header {
+    background: $bg;
   }
 </style>
