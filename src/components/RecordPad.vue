@@ -182,7 +182,9 @@
       }
 
       > .record {
-        padding: 10px 10px;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
         @extend %record;
 
         .name-money {
