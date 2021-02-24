@@ -2,12 +2,13 @@
   <div>
     <Layout>
       <template :slot="'header'">
-        <Tabs :value.sync="record.type"/>
+        <Tabs :data-source="types" :value.sync="record.type"/>
       </template>
       <template :slot="'default'">
         <Tags :tag-list="tagList"/>
         <Note :number="output"/>
-        <NumberPad :value.sync="output"/>
+        <NumberPad :value.sync="record.amount" :output.sync="output"/>
+        {{record}}
       </template>
     </Layout>
   </div>

@@ -26,50 +26,51 @@
 
   @Component
   export default class NumberPad extends Vue {
-    @Prop(String) value!: string;
-    output: string = this.value.toString();
+    @Prop(Number) value!: number;
+    @Prop(String) output!: string;
+    innerOutput: string = this.output.toString();
 
     inputContent(event: MouseEvent) {
       const button = event.target as HTMLButtonElement;
       const input = button.textContent as string;
-      if (this.output.length > 15) {return;}
-      if (this.output === '0') {
+      if (this.innerOutput.length > 15) {return;}
+      if (this.innerOutput === '0') {
         if (input === '0') {
           return;
         }
         if ('0123456789'.indexOf(input) > 0) {
-          this.output = input;
+          this.innerOutput = input;
         } else if (input === '.') {
-          this.output = this.output + input;
+          this.innerOutput = this.innerOutput + input;
         }
         return;
       } else {
-        if (input === '.' && this.output.includes('.')) {return;}
-        this.output = this.output + input;
+        if (input === '.' && this.innerOutput.includes('.')) {return;}
+        this.innerOutput = this.innerOutput + input;
       }
     }
 
     remove() {
-      if (this.output.length <= 1) {
-        this.output = '0';
+      if (this.innerOutput.length <= 1) {
+        this.innerOutput = '0';
       } else {
-        this.output = this.output.slice(0, -1);
+        this.innerOutput = this.innerOutput.slice(0, -1);
       }
     }
 
     clear() {
-      this.output = '0';
+      this.innerOutput = '0';
     }
 
     ok() {
-      this.$emit('update:value', parseFloat(this.output));
+      this.$emit('update:value', parseFloat(this.innerOutput));
       this.$emit('submit');
-      this.output = '0';
+      this.innerOutput = '0';
     }
 
-    @Watch('output')
+    @Watch('innerOutput')
     onChangeInnerOutput() {
-      this.$emit('update:value', this.output);
+      this.$emit('update:output', this.innerOutput);
     }
   }
 </script>

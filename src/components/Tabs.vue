@@ -4,7 +4,8 @@
       v-for="tab in dataSource"
       :key="tab.value"
       :class="liClass(tab)"
-      @click="select(tab.value)">{{tab.text}}
+      @click="select(tab)">
+      {{tab.text}}
     </li>
   </ol>
 </template>
@@ -15,15 +16,15 @@
 
   @Component
   export default class Tabs extends Vue {
-    @Prop(String) value!: string;
+    @Prop(Object) value!: DataSource;
     @Prop(Array) dataSource!: DataSource[];
     @Prop(String) classPrefix!: string;
 
     liClass(tab: DataSource) {
-      return {selected: tab.value === this.value, [this.classPrefix + 'item-content']: this.classPrefix};
+      return {selected: tab.value === this.value.value, [this.classPrefix + 'item-content']: this.classPrefix};
     }
 
-    select(type: string) {
+    select(type: DataSource) {
       this.$emit('update:value', type);
     }
   }
