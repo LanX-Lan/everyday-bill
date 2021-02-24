@@ -9,5 +9,5 @@ type RecordItem = {
   type: DataSource;
   note: string;
   amount: number;
-  chartAt: string;
+  chartAt: Date;
 }

@@ -10,29 +10,29 @@
       <span @click="show=true">{{this.date}}</span>
       <span class="number">{{number}}</span>
     </div>
-    <Date :show.sync="show" @update:pickerDate="updatePickerDate"/>
+    <PickerDate :show.sync="show" @update:pickerDate="updatePickerDate"/>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
-  import Date from '@/components/Date.vue';
+  import PickerDate from '@/components/PickerDate.vue';
 
   @Component({
-    components: {Date}
+    components: {PickerDate}
   })
   export default class Note extends Vue {
     @Prop(String) number!: string;
     @Prop(String) note!: string;
-    @Prop(String) date!: string;
+    @Prop(Date) date!: Date;
     show = false;
 
     onInput(value: string) {
       this.$emit('update:note', value);
     }
 
-    updatePickerDate(date: string) {
+    updatePickerDate(date: Date) {
       this.$emit('update:date', date);
     }
   }

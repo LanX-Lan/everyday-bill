@@ -38,7 +38,7 @@
       tags: [],
       type: {text: '支出', value: '-'},
       note: '',
-      chartAt: (new Date()).toISOString(),
+      chartAt: new Date(),
       amount: 0
     };
     recordList: RecordItem[] = [];
