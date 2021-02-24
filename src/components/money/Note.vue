@@ -7,20 +7,27 @@
       </label>
     </div>
     <div class="date-money">
-      <span class="date">今天</span>
+      <span @click="show=true">今天</span>
       <span class="number">{{number}}</span>
     </div>
+    {{pickDate}}
+    <Date :show.sync="show" :pick-date.sync="pickDate"/>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
+  import Date from '@/components/Date.vue';
 
-  @Component
+  @Component({
+    components: {Date}
+  })
   export default class Note extends Vue {
     @Prop(String) number!: string;
     @Prop(String) note!: string;
+    pickDate = '';
+    show = false;
 
     onInput(value: string) {
       this.$emit('update:note', value);
@@ -45,7 +52,10 @@
 
 
     .date {
-
+      input {
+        background: transparent;
+        border: none;
+      }
     }
 
     .number {

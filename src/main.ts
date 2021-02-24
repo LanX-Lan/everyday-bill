@@ -7,6 +7,10 @@ import Layout from '@/components/Layout.vue';
 import Nav from '@/components/Nav.vue';
 import '@/assets/style/helper.scss';
 import Icon from '@/components/Icon.vue';
+import {Picker} from 'muse-ui';
+import 'muse-ui/dist/muse-ui.css';
+
+Vue.use(Picker);
 
 Vue.config.productionTip = false;
 Vue.component('Layout', Layout);

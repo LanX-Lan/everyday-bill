@@ -2,6 +2,8 @@
   <div>
     <Layout>
       Statistics
+
+
     </Layout>
   </div>
 </template>
@@ -10,6 +12,7 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import Layout from '@/components/Layout.vue';
+
 
   @Component({
     components: {Layout}
@@ -20,5 +23,6 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "~@/assets/style/helper.scss";
 
 </style>

@@ -8,7 +8,6 @@
         <Tags :tag-list="tagList" :selected.sync="record.tags"/>
         <Note :number="output" :note.sync="record.note"/>
         <NumberPad :value.sync="record.amount" :output.sync="output" @submit="onSubmit"/>
-        {{recordList}}
       </template>
     </Layout>
   </div>
