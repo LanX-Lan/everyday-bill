@@ -2,9 +2,7 @@
   <div>
     <div class="date-money">
       <span class="date">今天</span>
-      <label>
-        <input type="number" placeholder="0" value="" autofocus/>
-      </label>
+      <span class="number">{{number}}</span>
     </div>
     <div class="note">
       <label>
@@ -18,11 +16,11 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component
   export default class Note extends Vue {
-
+    @Prop(Number) number!: number
   }
 </script>
 
@@ -46,10 +44,8 @@
 
     }
 
-    input {
+    .number {
       font-size: 20px;
-      text-align: end;
-      border: none;
       width: auto;
     }
   }

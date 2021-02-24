@@ -6,7 +6,8 @@
       </template>
       <template :slot="'default'">
         <Tags :tag-list="tagList"/>
-        <Note/>
+        <Note :number="output"/>
+        <NumberPad :value.sync="output"/>
       </template>
     </Layout>
   </div>
@@ -19,21 +20,24 @@
   import Tags from '@/components/money/Tags.vue';
   import Note from '@/components/money/Note.vue';
   import Tabs from '@/components/Tabs.vue';
+  import NumberPad from '@/components/money/NumberPad.vue';
 
   type Record = {
     tags: Tag[];
   }
   @Component({
-    components: {Tabs, Note, Tags, Layout}
+    components: {NumberPad, Tabs, Note, Tags, Layout}
   })
   export default class Money extends Vue {
 
     type = '-';
+    output = '0';
     tagList: Tag[] = [
       {id: 1, text: '交通', name: 'bus'},
       {id: 2, text: '水果', name: 'fruit'},
       {id: 3, text: '医院', name: 'health'}
     ];
+
     select(type: string) {
       this.type = type;
     }
@@ -41,6 +45,21 @@
 </script>
 
 <style lang="scss" scoped>
+  ::v-deep {
+    .layout {
+      .container {
+        display: flex;
+        flex-direction: column;
+      }
 
+    }
+
+    .numberPad {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: flex-end;
+    }
+  }
 
 </style>
