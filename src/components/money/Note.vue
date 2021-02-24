@@ -1,15 +1,14 @@
 <template>
   <div>
-    <div class="date-money">
-      <span class="date">今天</span>
-      <span class="number">{{number}}</span>
-    </div>
     <div class="note">
       <label>
         备注
         <input name="" placeholder="写点什么吧"/>
       </label>
-      <button>保存</button>
+    </div>
+    <div class="date-money">
+      <span class="date">今天</span>
+      <span class="number">{{number}}</span>
     </div>
   </div>
 </template>
@@ -20,12 +19,13 @@
 
   @Component
   export default class Note extends Vue {
-    @Prop(Number) number!: number
+    @Prop(Number) number!: number;
   }
 </script>
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
+
   %note {
     display: flex;
     justify-content: space-between;
@@ -36,9 +36,8 @@
 
   .date-money {
     @extend %note;
-    border: 1px solid $border-color;
-    border-left: none;
-    border-right: none;
+    border-bottom: 1px solid $border-color;
+
 
     .date {
 
@@ -52,7 +51,9 @@
 
   .note {
     @extend %note;
-    border-bottom: 1px solid $border-color;
+    border: 1px solid $border-color;
+    border-left: none;
+    border-right: none;
 
     > button {
       border: none;
