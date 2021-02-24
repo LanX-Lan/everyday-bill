@@ -19,7 +19,7 @@
 
   @Component
   export default class Note extends Vue {
-    @Prop(Number) number!: number;
+    @Prop(String) number!: string;
   }
 </script>
 
