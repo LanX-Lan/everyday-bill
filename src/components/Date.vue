@@ -37,7 +37,7 @@
         this.$emit('update:show', false)
       },
       confirm() {
-        this.$emit('update:pickDate', this.date)
+        this.$emit('update:pickerDate', this.date)
         this.$emit('update:show', false)
       }
 

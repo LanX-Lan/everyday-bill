@@ -4,11 +4,10 @@
       <template :slot="'header'">
         <Tabs :data-source="types" :value.sync="record.type"/>
       </template>
-      <template :slot="'default'">
-        <Tags :tag-list="tagList" :selected.sync="record.tags"/>
-        <Note :number="output" :note.sync="record.note"/>
-        <NumberPad :value.sync="record.amount" :output.sync="output" @submit="onSubmit"/>
-      </template>
+      <Tags :tag-list="tagList" :selected.sync="record.tags"/>
+      <Note :number="output" :note.sync="record.note" :date.sync="record.chartAt"/>
+      <NumberPad :value.sync="record.amount" :output.sync="output" @submit="onSubmit"/>
+      {{recordList}}
     </Layout>
   </div>
 </template>
@@ -35,7 +34,13 @@
       {id: 2, text: '水果', name: 'fruit'},
       {id: 3, text: '医院', name: 'health'}
     ];
-    record: RecordItem = {tags: [], type: {text: '支出', value: '-'}, note: '', chartAt: '', amount: 0};
+    record: RecordItem = {
+      tags: [],
+      type: {text: '支出', value: '-'},
+      note: '',
+      chartAt: (new Date()).toISOString(),
+      amount: 0
+    };
     recordList: RecordItem[] = [];
 
     onSubmit() {

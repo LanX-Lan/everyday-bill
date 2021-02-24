@@ -7,11 +7,10 @@
       </label>
     </div>
     <div class="date-money">
-      <span @click="show=true">今天</span>
+      <span @click="show=true">{{this.date}}</span>
       <span class="number">{{number}}</span>
     </div>
-    {{pickDate}}
-    <Date :show.sync="show" :pick-date.sync="pickDate"/>
+    <Date :show.sync="show" @update:pickerDate="updatePickerDate"/>
   </div>
 </template>
 
@@ -26,11 +25,15 @@
   export default class Note extends Vue {
     @Prop(String) number!: string;
     @Prop(String) note!: string;
-    pickDate = '';
+    @Prop(String) date!: string;
     show = false;
 
     onInput(value: string) {
       this.$emit('update:note', value);
+    }
+
+    updatePickerDate(date: string) {
+      this.$emit('update:date', date);
     }
   }
 </script>

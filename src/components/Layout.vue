@@ -36,6 +36,7 @@
   .container {
     flex-grow: 1;
     overflow: auto;
+    padding: 0;
     /*position: relative;*/
   }
 
