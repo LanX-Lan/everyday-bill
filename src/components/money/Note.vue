@@ -3,7 +3,7 @@
     <div class="note">
       <label>
         备注
-        <input name="" placeholder="写点什么吧"/>
+        <input placeholder="写点什么吧" @input="onInput($event.target.value)" :value="note"/>
       </label>
     </div>
     <div class="date-money">
@@ -20,6 +20,11 @@
   @Component
   export default class Note extends Vue {
     @Prop(String) number!: string;
+    @Prop(String) note!: string;
+
+    onInput(value: string) {
+      this.$emit('update:note', value);
+    }
   }
 </script>
 

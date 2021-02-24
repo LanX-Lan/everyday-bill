@@ -21,9 +21,11 @@
 
   @Component
   export default class Tags extends Vue {
-    @Prop(Array) tagList?: Tag[];
-    selectedTags: Tag[] = [];
-
+    @Prop(Array) tagList!: Tag[];
+    @Prop(Array) selected!: Tag[];
+    get selectedTags(){
+      return this.selected
+    }
     toggle(tag: Tag) {
       const index = this.selectedTags.indexOf(tag);
       if (index >= 0) {
@@ -31,6 +33,7 @@
       } else if (this.selectedTags.indexOf(tag) < 0) {
         this.selectedTags.push(tag);
       }
+      this.$emit('update:selected', this.selectedTags);
     }
   }
 </script>

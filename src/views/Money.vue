@@ -5,10 +5,10 @@
         <Tabs :data-source="types" :value.sync="record.type"/>
       </template>
       <template :slot="'default'">
-        <Tags :tag-list="tagList"/>
-        <Note :number="output"/>
-        <NumberPad :value.sync="record.amount" :output.sync="output"/>
-        {{record}}
+        <Tags :tag-list="tagList" :selected.sync="record.tags"/>
+        <Note :number="output" :note.sync="record.note"/>
+        <NumberPad :value.sync="record.amount" :output.sync="output" @submit="onSubmit"/>
+        {{recordList}}
       </template>
     </Layout>
   </div>
@@ -22,6 +22,7 @@
   import Note from '@/components/money/Note.vue';
   import Tabs from '@/components/Tabs.vue';
   import NumberPad from '@/components/money/NumberPad.vue';
+  import clone from '@/lib/clone';
 
   @Component({
     components: {NumberPad, Tabs, Note, Tags, Layout}
@@ -36,6 +37,15 @@
       {id: 3, text: '医院', name: 'health'}
     ];
     record: RecordItem = {tags: [], type: {text: '支出', value: '-'}, note: '', chartAt: '', amount: 0};
+    recordList: RecordItem[] = [];
+
+    onSubmit() {
+      console.log(1);
+      const record2 = clone(this.record) as RecordItem;
+      this.recordList.push(record2);
+      this.record.tags = [];
+      this.record.note = '';
+    }
   }
 </script>
 
