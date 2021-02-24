@@ -1,7 +1,11 @@
 <template>
   <ol class="tabs">
-    <li :class="{selected: value==='-'}" @click="select('-')">支出</li>
-    <li :class="{selected: value==='+'}" @click="select('+')">收入</li>
+    <li
+      v-for="tab in dataSource"
+      :key="tab.value"
+      :class="liClass(tab)"
+      @click="select(tab.value)">{{tab.text}}
+    </li>
   </ol>
 </template>
 
@@ -11,15 +15,23 @@
 
   @Component
   export default class Tabs extends Vue {
-    @Prop(String) value!: string
-    select(type: string){
-      this.$emit('update:value',type)
+    @Prop(String) value!: string;
+    @Prop(Array) dataSource!: DataSource[];
+    @Prop(String) classPrefix!: string;
+
+    liClass(tab: DataSource) {
+      return {selected: tab.value === this.value, [this.classPrefix + 'item-content']: this.classPrefix};
+    }
+
+    select(type: string) {
+      this.$emit('update:value', type);
     }
   }
 </script>
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
+
   .tabs {
     display: flex;
     justify-content: center;
