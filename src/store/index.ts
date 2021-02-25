@@ -12,7 +12,8 @@ const localStoreTagList = 'TagList';
 const store = new Vuex.Store({
   state: {
     recordList: [],
-    tagList: []
+    tagList: [],
+    duplicate: ''
   } as RootState,
   mutations: {
     initRecordList: state => {
@@ -33,9 +34,10 @@ const store = new Vuex.Store({
       state.tagList = JSON.parse(window.localStorage.getItem(localStoreTagList) || '[]') as Tag[];
     },
     updateTagList(state, tag: Tag) {
-      const texts = state.tagList.map(tag => tag.text);
+      state.duplicate = '';
+      const texts = state.tagList.filter(item => tag.type.value === item.type.value).map(tag => tag.text);
       if (texts.indexOf(tag.text) >= 0) {
-        window.alert('标签名重复了');
+        state.duplicate = 'duplicate';
         return;
       } else {
         const tag1 = clone(tag) as Tag;

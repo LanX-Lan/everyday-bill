@@ -50,13 +50,19 @@
     }
 
     onSubmit() {
-      const record2 = clone(this.record) as RecordItem;
-      this.$store.commit('updateRecordList', record2);
-      this.record.tags = [];
-      this.record.note = '';
+      if (this.record.tags.length > 0) {
+        const record2 = clone(this.record) as RecordItem;
+        this.$store.commit('updateRecordList', record2);
+        window.alert('保存成功');
+        this.record.tags = [];
+        this.record.note = '';
+      } else {
+        window.alert('请选择至少一个标签');
+      }
     }
 
     created() {
+      this.$store.commit('initTagList');
       this.$store.commit('initRecordList');
     }
   }

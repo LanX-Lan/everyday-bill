@@ -6,7 +6,7 @@
          :key="tag.id" @click="toggle(tag)"
     >
       <Icon :name="tag.name"/>
-      <span>{{tag.text}}</span>
+      <span v-if="showText">{{tag.text}}</span>
     </div>
     <div class="icons-item">
       <slot/>
@@ -25,6 +25,8 @@
     @Prop() selected!: Tag[] | Tag;
     @Prop({default: false, type: Boolean})
     single!: boolean;
+    @Prop({default: true, type: Boolean})
+    showText!: boolean;
 
     get selectedTags() {
       return this.selected as Tag[];
