@@ -7,7 +7,7 @@
       </label>
     </div>
     <div class="date-money">
-      <span @click="show=true">{{this.date}}</span>
+      <span @click="show=true">{{beautyDate}}</span>
       <span class="number">{{number}}</span>
     </div>
     <PickerDate :show.sync="show" @update:pickerDate="updatePickerDate"/>
@@ -18,6 +18,7 @@
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
   import PickerDate from '@/components/PickerDate.vue';
+  import dayjs from 'dayjs';
 
   @Component({
     components: {PickerDate}
@@ -28,6 +29,18 @@
     @Prop(Date) date!: Date;
     show = false;
 
+    get beautyDate() {
+      const now = dayjs();
+      const day = dayjs(this.date)
+      if (day.isSame(now, 'day')) {
+        return '今天';
+      } else if (day.isSame(now.subtract(1,'day'),'day')) {
+        return '昨天';
+      } else {
+        return day.format('YYYY-M-D');
+      }
+    }
+
     onInput(value: string) {
       this.$emit('update:note', value);
     }
@@ -35,6 +48,7 @@
     updatePickerDate(date: Date) {
       this.$emit('update:date', date);
     }
+
   }
 </script>
 

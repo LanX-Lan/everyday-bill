@@ -5,7 +5,7 @@
         <Tabs :data-source="types" :value.sync="record.type"/>
       </template>
       <Tags :tag-list="tagList" :selected.sync="record.tags"/>
-      <Note :number="output" :note.sync="record.note" :date.sync="record.chartAt"/>
+      <Note :number="output" :note.sync="record.note" :date.sync="record.noteDate"/>
       <NumberPad :value.sync="record.amount" :output.sync="output" @submit="onSubmit"/>
       {{recordList}}
     </Layout>
@@ -38,17 +38,24 @@
       tags: [],
       type: {text: '支出', value: '-'},
       note: '',
-      chartAt: new Date(),
+      noteDate: new Date(),
       amount: 0
     };
-    recordList: RecordItem[] = [];
+
+    get recordList() {
+      return (this.$store.state as RootState).recordList;
+    }
 
     onSubmit() {
       console.log(1);
       const record2 = clone(this.record) as RecordItem;
-      this.recordList.push(record2);
+      this.$store.commit('updateRecordList', record2);
       this.record.tags = [];
       this.record.note = '';
+    }
+
+    created() {
+      this.$store.commit('initRecordList');
     }
   }
 </script>
@@ -70,5 +77,4 @@
       justify-content: flex-end;
     }
   }
-
 </style>

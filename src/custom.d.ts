@@ -5,9 +5,14 @@ type Tag = {
 }
 type DataSource = { text: string; value: string }
 type RecordItem = {
+  id?: number;
   tags: Tag[];
   type: DataSource;
   note: string;
   amount: number;
-  chartAt: Date;
+  noteDate: Date;
+  createAt?: Date;
+}
+type RootState = {
+  recordList: RecordItem[];
 }
