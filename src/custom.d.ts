@@ -1,5 +1,6 @@
 type Tag = {
-  id: number;
+  id?: number;
+  type: DataSource;
   text: string;
   name: string;
 }
@@ -15,4 +16,5 @@ type RecordItem = {
 }
 type RootState = {
   recordList: RecordItem[];
+  tagList: Tag[];
 }

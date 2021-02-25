@@ -4,108 +4,44 @@
       <Tabs :data-source="dataSource" :value.sync="type"/>
     </template>
     <div class="labels">
-      <div class="label">
-        <Icon name="bus"/>
-        <span>交通</span>
-        <div class="deleted">
-          <Icon name="deleted"/>
-        </div>
-      </div>
-      <div class="label">
-        <Icon name="bus"/>
-        <span>交通</span>
-        <div class="deleted">
-          <Icon name="deleted"/>
-        </div>
-      </div>
-      <div class="label">
-        <Icon name="bus"/>
-        <span>交通</span>
-        <div class="deleted">
-          <Icon name="deleted"/>
-        </div>
-      </div>
-      <div class="label">
-        <Icon name="bus"/>
-        <span>交通</span>
-        <div class="deleted">
-          <Icon name="deleted"/>
-        </div>
-      </div>
-      <div class="label">
-        <Icon name="bus"/>
-        <span>交通</span>
-        <div class="deleted">
-          <Icon name="deleted"/>
-        </div>
-      </div>
-      <div class="label">
-        <Icon name="bus"/>
-        <span>交通</span>
-        <div class="deleted">
-          <Icon name="deleted"/>
-        </div>
-      </div>
-      <div class="label">
-        <Icon name="bus"/>
-        <span>交通</span>
-        <div class="deleted">
-          <Icon name="deleted"/>
-        </div>
-      </div>
-      <div class="label">
-        <Icon name="bus"/>
-        <span>交通</span>
-        <div class="deleted">
-          <Icon name="deleted"/>
-        </div>
-      </div>
-      <div class="label">
-        <Icon name="bus"/>
-        <span>交通</span>
-        <div class="deleted">
-          <Icon name="deleted"/>
-        </div>
-      </div>
-      <div class="label">
-        <Icon name="bus"/>
-        <span>交通</span>
-        <div class="deleted">
-          <Icon name="deleted"/>
-        </div>
-      </div>
-      <div class="label">
-        <Icon name="bus"/>
-        <span>交通</span>
-        <div class="deleted">
-          <Icon name="deleted"/>
-        </div>
-      </div>
-      <div class="label">
-        <Icon name="bus"/>
-        <span>交通</span>
-        <div class="deleted">
+      <div class="label" v-for="tag in tagList" :key="tag.id">
+        <Icon :name="tag.name"/>
+        <span>{{tag.text}}</span>
+        <div class="deleted" @click="remove(tag.id)">
           <Icon name="deleted"/>
         </div>
       </div>
     </div>
-    <div class="button-wrapper">
-      <button class="button" @click="$router.push('/editLabel')">新增标签</button>
-    </div>
+    <Button @click="$router.push({path: `/addLabel/`,query:{type:JSON.stringify(type)}})">新增标签</Button>
   </Layout>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
+  import Button from '@/components/Button.vue';
 
-  @Component
+  @Component({
+    components: {Button}
+  })
   export default class Labels extends Vue {
     type: DataSource = {
       text: '支出',
       value: '-'
     };
     dataSource = [{text: '支出', value: '-'}, {text: '收入', value: '+'}];
+
+    get tagList() {
+      return (this.$store.state as RootState).tagList.filter(tag => tag.type.value === this.type.value);
+    }
+
+    remove(id: number) {
+      this.$store.commit('removeTag', id);
+    }
+
+    created() {
+      this.$store.commit('initTagList');
+    }
   }
 </script>
 
@@ -146,21 +82,6 @@
           color: red;
         }
       }
-    }
-  }
-
-  .button-wrapper {
-    padding: 10px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .button {
-      border: none;
-      background: $bg;
-      color: #ffffff;
-      border-radius: 5px;
-      padding: 10px 100px;
-      //@extend %clearFix;
     }
   }
 

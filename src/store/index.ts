@@ -2,14 +2,17 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import createId from '@/lib/createId';
+import createTagId from '@/lib/createTagId';
 
 Vue.use(Vuex);
 
 
 const localStoreRecordList = 'RecordList';
+const localStoreTagList = 'TagList';
 const store = new Vuex.Store({
   state: {
-    recordList: []
+    recordList: [],
+    tagList: []
   } as RootState,
   mutations: {
     initRecordList: state => {
@@ -25,6 +28,35 @@ const store = new Vuex.Store({
     },
     saveRecordList(state) {
       window.localStorage.setItem(localStoreRecordList, JSON.stringify(state.recordList));
+    },
+    initTagList(state) {
+      state.tagList = JSON.parse(window.localStorage.getItem(localStoreTagList) || '[]') as Tag[];
+    },
+    updateTagList(state, tag: Tag) {
+      const texts = state.tagList.map(tag => tag.text);
+      if (texts.indexOf(tag.text) >= 0) {
+        window.alert('标签名重复了');
+        return;
+      } else {
+        const tag1 = clone(tag) as Tag;
+        tag1.id = createTagId();
+        state.tagList.push(tag1);
+        store.commit('saveTagList');
+      }
+    },
+    removeTag(state, id: number) {
+      let index!: number;
+      for (let i = 0; i < state.tagList.length; i++) {
+        if (id === state.tagList[i].id) {
+          index = i;
+          break;
+        }
+      }
+      state.tagList.splice(index, 1);
+      store.commit('saveTagList');
+    },
+    saveTagList(state) {
+      window.localStorage.setItem(localStoreTagList, JSON.stringify(state.tagList));
     }
   },
 });

@@ -4,10 +4,14 @@
       <template :slot="'header'">
         <Tabs :data-source="types" :value.sync="record.type"/>
       </template>
-      <Tags :tag-list="tagList" :selected.sync="record.tags"/>
+      <Tags :tag-list="tagList" :selected.sync="record.tags">
+        <router-link to="/label">
+          <Icon name="addTag"/>
+          <span>新增</span>
+        </router-link>
+      </Tags>
       <Note :number="output" :note.sync="record.note" :date.sync="record.noteDate"/>
       <NumberPad :value.sync="record.amount" :output.sync="output" @submit="onSubmit"/>
-      {{recordList}}
     </Layout>
   </div>
 </template>
@@ -28,12 +32,6 @@
   export default class Money extends Vue {
 
     types: DataSource[] = [{text: '支出', value: '-',}, {text: '收入', value: '+',}];
-    output = '0';
-    tagList: Tag[] = [
-      {id: 1, text: '交通', name: 'bus'},
-      {id: 2, text: '水果', name: 'fruit'},
-      {id: 3, text: '医院', name: 'health'}
-    ];
     record: RecordItem = {
       tags: [],
       type: {text: '支出', value: '-'},
@@ -41,13 +39,17 @@
       noteDate: new Date(),
       amount: 0
     };
+    output = '0';
+
+    get tagList() {
+      return (this.$store.state as RootState).tagList.filter(tag => tag.type.value === this.record.type.value);
+    }
 
     get recordList() {
       return (this.$store.state as RootState).recordList;
     }
 
     onSubmit() {
-      console.log(1);
       const record2 = clone(this.record) as RecordItem;
       this.$store.commit('updateRecordList', record2);
       this.record.tags = [];

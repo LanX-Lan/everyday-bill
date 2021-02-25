@@ -1,17 +1,17 @@
 <template>
   <div class="tags">
     <div class="icons-item"
-         :class="{selected:selectedTags.indexOf(tag)>=0}"
+         :class="selectedClass(tag)"
          v-for="tag in tagList"
          :key="tag.id" @click="toggle(tag)"
     >
       <Icon :name="tag.name"/>
       <span>{{tag.text}}</span>
     </div>
-    <router-link to="/label" class="icons-item">
-      <Icon name="addTag"/>
-      <span>新增</span>
-    </router-link>
+    <div class="icons-item">
+      <slot/>
+    </div>
+
   </div>
 </template>
 
@@ -22,13 +22,25 @@
   @Component
   export default class Tags extends Vue {
     @Prop(Array) tagList!: Tag[];
-    @Prop(Array) selected!: Tag[];
+    @Prop() selected!: Tag[] | Tag;
+    @Prop({default: false, type: Boolean})
+    single!: boolean;
 
     get selectedTags() {
-      return this.selected;
+      return this.selected as Tag[];
     }
 
-    toggle(tag: Tag) {
+    selectedClass(tag: Tag) {
+      if (this.single) {
+        return {selectedTag: (this.selected as Tag).id === tag.id};
+      } else {
+        return {
+          selectedTags: this.selectedTags.indexOf(tag) >= 0
+        };
+      }
+    }
+
+    handelSelectedTags(tag: Tag) {
       const index = this.selectedTags.indexOf(tag);
       if (index >= 0) {
         this.selectedTags.splice(index, 1);
@@ -36,6 +48,18 @@
         this.selectedTags.push(tag);
       }
       this.$emit('update:selected', this.selectedTags);
+    }
+
+    handelSingle(tag: Tag) {
+      this.$emit('update:selected', tag);
+    }
+
+    toggle(tag: Tag) {
+      if (!this.single) {
+        this.handelSelectedTags(tag);
+      } else {
+        this.handelSingle(tag);
+      }
     }
   }
 </script>
@@ -58,7 +82,11 @@
       text-align: center;
       width: 20%;
 
-      &.selected {
+      &.selectedTags {
+        color: $bg;
+      }
+
+      &.selectedTag {
         color: $bg;
       }
     }

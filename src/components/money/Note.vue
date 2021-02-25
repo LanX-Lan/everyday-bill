@@ -7,7 +7,7 @@
       </label>
     </div>
     <div class="date-money">
-      <span @click="show=true">{{beautyDate}}</span>
+      <span @click="show=true">{{beautyDate}} <Icon name="down"/></span>
       <span class="number">{{number}}</span>
     </div>
     <PickerDate :show.sync="show" @update:pickerDate="updatePickerDate"/>
@@ -31,10 +31,10 @@
 
     get beautyDate() {
       const now = dayjs();
-      const day = dayjs(this.date)
+      const day = dayjs(this.date);
       if (day.isSame(now, 'day')) {
         return '今天';
-      } else if (day.isSame(now.subtract(1,'day'),'day')) {
+      } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
         return '昨天';
       } else {
         return day.format('YYYY-M-D');
@@ -67,15 +67,7 @@
     @extend %note;
     border-bottom: 1px solid $border-color;
 
-
-    .date {
-      input {
-        background: transparent;
-        border: none;
-      }
-    }
-
-    .number {
+    > .number {
       font-size: 20px;
       width: auto;
     }

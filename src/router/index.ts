@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
 import NotFound from '@/views/NotFound.vue';
 import Labels from '@/views/Labels.vue';
-import EditLabel from '@/views/EditLabel.vue';
+import AddLabel from '@/views/AddLabel.vue';
 
 
 Vue.use(VueRouter);
@@ -33,9 +33,9 @@ const routes: Array<RouteConfig> = [
     component:Labels,
   },
   {
-    path:'/editLabel',
-    name: 'EditLabel',
-    component: EditLabel,
+    path:'/addLabel/',
+    name: 'AddLabel',
+    component: AddLabel,
   },
   {
     path: '*',
