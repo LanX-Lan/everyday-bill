@@ -17,12 +17,9 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
-  import PickerDate from '@/components/PickerDate.vue';
   import dayjs from 'dayjs';
 
-  @Component({
-    components: {PickerDate}
-  })
+  @Component
   export default class Note extends Vue {
     @Prop(String) number!: string;
     @Prop(String) note!: string;

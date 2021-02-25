@@ -69,6 +69,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "~@/assets/style/helper.scss";
+
   ::v-deep {
     .layout {
       .container {
@@ -84,5 +86,9 @@
       flex-grow: 1;
       justify-content: flex-end;
     }
+  }
+
+  ::v-deep .mu-picker .mu-datepicker {
+    box-shadow: 5px 5px 5px $color-shadow;
   }
 </style>

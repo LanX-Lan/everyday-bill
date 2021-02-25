@@ -7,6 +7,7 @@
       display-color="#42b476"
       color="#42b476"
       :date.sync="picker"
+      :type="pickerType"
       :max-date="maxDate"
       @change="pickerChange"
     >
@@ -28,7 +29,11 @@
         maxDate: new Date()
       }
     },
-    props: ['show', 'pickDate'],
+    props: {
+      'show':{type:Boolean},
+      'pickerDate':{type:Date},
+      'pickerType':{type:String,default:'date'}
+    },
     methods: {
       pickerChange(date) {
         this.date = date
@@ -53,6 +58,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    box-shadow: 1px 1px 4px $color-shadow;
   }
 
   ::v-deep .mu-picker .mu-datepicker {

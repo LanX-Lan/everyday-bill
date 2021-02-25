@@ -19,3 +19,10 @@ type RootState = {
   tagList: Tag[];
   duplicate: string;
 }
+type Result = {
+  title: Date;
+  items: RecordItem[];
+  outcome?: number;
+  income?: number;
+  total?: number;
+}

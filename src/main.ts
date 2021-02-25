@@ -10,6 +10,7 @@ import Icon from '@/components/Icon.vue';
 import {Picker} from 'muse-ui';
 import 'muse-ui/dist/muse-ui.css';
 import Tabs from '@/components/Tabs.vue';
+import PickerDate from '@/components/PickerDate.vue';
 
 Vue.use(Picker);
 
@@ -18,6 +19,7 @@ Vue.component('Layout', Layout);
 Vue.component('Nav', Nav);
 Vue.component('Icon', Icon);
 Vue.component('Tabs', Tabs);
+Vue.component('PickerDate', PickerDate);
 new Vue({
   router,
   store,

@@ -1,142 +1,18 @@
 <template>
   <div class="record-pad" :class="classPrefix && `${classPrefix}-content`">
-    <div class="record-item">
+    <div class="record-item" v-for="(list,index) in dataSource" :key="index+'record-item'">
       <div class="record-title">
-        <span>2月22日</span>
-        <span class="record-income">收入 0.00</span>
-        <span>支出 25.00</span>
+        <span>{{beauty(list.title)}}</span>
+        <span class="record-income">收入 {{list.income}}</span>
+        <span>支出 {{list.outcome}}</span>
       </div>
-      <div class="record">
-        <Icon name="vegetables"/>
+      <div class="record" v-for="item in list.items" :key="item.id+'record'">
+
         <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-    </div>
-    <div class="record-item">
-      <div class="record-title">
-        <span>2月22日</span>
-        <span class="record-income">收入 0.00</span>
-        <span>支出 25.00</span>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-    </div>
-    <div class="record-item">
-      <div class="record-title">
-        <span>2月22日</span>
-        <span class="record-income">收入 0.00</span>
-        <span>支出 25.00</span>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-    </div>
-    <div class="record-item">
-      <div class="record-title">
-        <span>2月22日</span>
-        <span class="record-income">收入 0.00</span>
-        <span>支出 25.00</span>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-    </div>
-    <div class="record-item">
-      <div class="record-title">
-        <span>2月22日</span>
-        <span class="record-income">收入 0.00</span>
-        <span>支出 25.00</span>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
-        </div>
-      </div>
-      <div class="record">
-        <Icon name="vegetables"/>
-        <div class="name-money">
-          <span>餐饮</span>
-          <span>3.00</span>
+          <span>{{tagString(item.tags)}}</span>
+          <span class="note">{{item.note}}</span>
+          <span>{{item.type.value}}{{item.amount}}</span>
+
         </div>
       </div>
     </div>
@@ -146,10 +22,29 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
+  import dayjs from 'dayjs';
 
   @Component
   export default class RecordPad extends Vue {
     @Prop(String) classPrefix: string | undefined;
+    @Prop(Array) dataSource!: Result[];
+
+    beauty(date: Date) {
+      const now = dayjs();
+      const day = dayjs(date);
+      if (day.isSame(now, 'day')) {
+        return '今天';
+      } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
+        return '昨天';
+      } else {
+        return day.format('YYYY-M-D');
+      }
+    }
+
+    tagString(tags: Tag[]) {
+      const tagNames: string[] = tags.map(tag => tag.text);
+      return tags.length === 0 ? '无' : tagNames.join(',');
+    }
   }
 </script>
 
@@ -193,6 +88,12 @@
           margin-left: 15px;
           padding: 15px 0;
           border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+
+          > .note {
+            margin-right: auto;
+            font-size: 12px;
+            margin-left: 10px;
+          }
         }
 
         ::v-deep .icon {

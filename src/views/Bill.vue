@@ -3,28 +3,28 @@
     <Layout ref="layout">
       <template :slot="'header'">
         <div class="money" ref="money">
-          <div class="date">
-            <span>2021</span>
-            <span>2月x</span>
+          <div class="date" @click="show=true">
+            <span>{{changedDate.year()}}</span>
+            <span>{{changedDate.month()+1}}月 <Icon name="down"/></span>
           </div>
           <div class="income">
             <span>收入</span>
-            <span>0.00</span>
+            <span>{{totalIncome}}</span>
           </div>
           <div class="outcome">
             <span>支出</span>
-            <span>1846.00</span>
+            <span>{{totalOutcome}}</span>
           </div>
           <div class="total">
             <span>总计</span>
-            <span>-184600</span>
+            <span>{{total}}</span>
           </div>
         </div>
       </template>
       <template :slot="'default'">
-        <RecordPad :class-prefix="'record'"/>
+        <RecordPad :class-prefix="'record'" :data-source="groupList"/>
       </template>
-
+      <PickerDate :show.sync="show" :picker-date.sync="pickerDate" :picker-type="'month'"/>
     </Layout>
   </div>
 </template>
@@ -33,11 +33,93 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import RecordPad from '@/components/RecordPad.vue';
+  import clone from '@/lib/clone';
+  import dayjs from 'dayjs';
 
   @Component({
     components: {RecordPad}
   })
   export default class Bill extends Vue {
+    show = false;
+    pickerDate: Date = new Date();
+
+    get changedDate() {
+      return dayjs(this.pickerDate);
+    }
+
+    get recordList() {
+      return (this.$store.state as RootState).recordList;
+    }
+
+    get totalOutcome() {
+      let sum = 0;
+      for (let i = 0; i < this.groupList.length; i++) {
+        if (this.changedDate.isSame(dayjs(this.groupList[i].title), 'month')) {
+          sum -= this.groupList[i].outcome!;
+        }
+      }
+      return sum;
+    }
+
+    get totalIncome() {
+      let sum = 0;
+      for (let i = 0; i < this.groupList.length; i++) {
+        if (this.changedDate.isSame(dayjs(this.groupList[i].title), 'month')) {
+          sum += this.groupList[i].income!;
+        }
+      }
+      return sum;
+    }
+
+    get total() {
+      return this.totalIncome + this.totalOutcome;
+    }
+
+    get groupList() {
+      const recordList = this.recordList;
+      console.log(recordList);
+      const newList = clone(recordList)
+        .filter((record: RecordItem) => {return this.changedDate.isSame(dayjs(record.noteDate), 'month');})
+        .sort(
+          (a: RecordItem, b: RecordItem) => {
+            return dayjs(b.noteDate).valueOf() - dayjs(a.noteDate).valueOf();
+          });
+      console.log('newList', newList);
+      let result: Result[] = [];
+      if (newList.length > 0) {
+        result = [{title: newList[0].noteDate, items: [newList[0]]}];
+        for (let i = 1; i < newList.length; i++) {
+          const current = newList[i];
+          const last = result[result.length - 1];
+          if (dayjs(last.title).isSame(dayjs(current.noteDate), 'day')) {
+            last.items.push(current);
+          } else {
+            result.push({title: current.noteDate, items: [current]});
+          }
+        }
+        console.log('result', result);
+      }
+      console.log(result);
+      result.map(group => {
+        group.income = group.items.reduce((sum, item) => {
+          if (item.type.value === '+') {
+            return sum + item.amount;
+          }
+          return 0;
+        }, 0);
+        group.outcome = group.items.reduce((sum, item) => {
+          if (item.type.value === '-') {
+            return sum + item.amount;
+          }
+          return 0;
+        }, 0);
+      });
+      return result;
+    }
+
+    created() {
+      this.$store.commit('initRecordList');
+    }
   }
 </script>
 
