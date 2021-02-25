@@ -8,10 +8,10 @@
       <Icon :name="tag.name"/>
       <span>{{tag.text}}</span>
     </div>
-    <div class="icons-item">
+    <router-link to="/label" class="icons-item">
       <Icon name="addTag"/>
       <span>新增</span>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -23,9 +23,11 @@
   export default class Tags extends Vue {
     @Prop(Array) tagList!: Tag[];
     @Prop(Array) selected!: Tag[];
-    get selectedTags(){
-      return this.selected
+
+    get selectedTags() {
+      return this.selected;
     }
+
     toggle(tag: Tag) {
       const index = this.selectedTags.indexOf(tag);
       if (index >= 0) {

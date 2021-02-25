@@ -29,6 +29,7 @@
     back?: boolean | undefined;
     @Prop({default: true, type: Boolean})
     nav?: boolean | undefined;
+    @Prop(String) classPrefix!: string
   }
 </script>
 

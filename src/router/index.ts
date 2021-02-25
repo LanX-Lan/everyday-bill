@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
 import NotFound from '@/views/NotFound.vue';
+import Labels from '@/views/Labels.vue';
+import EditLabel from '@/views/EditLabel.vue';
 
 
 Vue.use(VueRouter);
@@ -24,6 +26,16 @@ const routes: Array<RouteConfig> = [
     path: '/statistics',
     name: 'Statistics',
     component: () => import('@/views/Statistics.vue'),
+  },
+  {
+    path:'/label',
+    name: 'Label',
+    component:Labels,
+  },
+  {
+    path:'/editLabel',
+    name: 'EditLabel',
+    component: EditLabel,
   },
   {
     path: '*',
