@@ -1,25 +1,34 @@
 <template>
   <div class="layout">
     <div class="header">
-      <h3 class="title">
-        天天记账
-      </h3>
+
+      <div class="title">
+        <div @click="$router.back()" v-if="back" class="back">
+          <Icon name="left"/>
+        </div>
+        <h3>
+          天天记账
+        </h3>
+      </div>
       <slot name="header"/>
     </div>
     <div class="container">
       <slot/>
     </div>
-    <Nav/>
+    <Nav v-if="nav"/>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component
   export default class Layout extends Vue {
-
+    @Prop({default: false, type: Boolean})
+    back?: boolean | undefined;
+    @Prop({default: true, type: Boolean})
+    nav?: boolean | undefined;
   }
 </script>
 
@@ -44,7 +53,22 @@
     text-align: center;
     padding: 10px 0;
     color: #ffffff;
-    font-weight: 700;
+    position: relative;
+
+    > h3 {
+      font-weight: 700;
+    }
+
+    > .back {
+      position: absolute;
+      left: 2px;
+      @extend %clearFix;
+    }
+
+    ::v-deep .icon {
+      height: 25px;
+      width: 25px;
+    }
   }
 
   .header {
