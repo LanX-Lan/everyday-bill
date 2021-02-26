@@ -32,7 +32,26 @@ const store = new Vuex.Store({
     },
     initTagList(state) {
       state.tagList = JSON.parse(window.localStorage.getItem(localStoreTagList) || '[]') as Tag[];
-
+      if (state.tagList.length <= 0) {
+        const item = {type: {text: '支出', value: '-'}};
+        const item2 = {type: {text: '收入', value: '+'}};
+        const tag1 = {...item, text: '衣', name: 'cloth'};
+        const tag2 = {...item, text: '食', name: 'rice'};
+        const tag3 = {...item, text: '住', name: 'home'};
+        const tag4 = {...item, text: '行', name: 'bus'};
+        const tag5 = {...item2, text: '奖金', name: 'prize'};
+        const tag6 = {...item2, text: '股票', name: 'stock'};
+        const tag7 = {...item2, text: '工资', name: 'salary'};
+        const tag8 = {...item2, text: '其他', name: 'other'};
+        store.commit('createTagList', tag1);
+        store.commit('createTagList', tag2);
+        store.commit('createTagList', tag3);
+        store.commit('createTagList', tag4);
+        store.commit('createTagList', tag5);
+        store.commit('createTagList', tag6);
+        store.commit('createTagList', tag7);
+        store.commit('createTagList', tag8);
+      }
     },
     createTagList(state, tag: Tag) {
       state.duplicate = '';
