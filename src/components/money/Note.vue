@@ -3,7 +3,7 @@
     <div class="note">
       <label>
         备注
-        <input placeholder="写点什么吧" @input="onInput($event.target.value)" :value="note"/>
+        <input placeholder="写点什么吧" @input="onInput($event.target.value)" :value="note" />
       </label>
     </div>
     <div class="date-money">

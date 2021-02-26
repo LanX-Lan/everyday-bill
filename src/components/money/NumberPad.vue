@@ -45,7 +45,7 @@
         }
         return;
       } else {
-        if (input === '.' && this.innerOutput.includes('.')) {return;}
+        if (input === '.' && this.innerOutput.includes('.')) {return;} else if (this.innerOutput.includes('.') && this.innerOutput.split('.')[1].length > 1) {return;}
         this.innerOutput = this.innerOutput + input;
       }
     }

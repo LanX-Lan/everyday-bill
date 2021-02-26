@@ -3,15 +3,15 @@
     <div class="record-item" v-for="(list,index) in dataSource" :key="index+'record-item'">
       <div class="record-title">
         <span>{{beauty(list.title)}}</span>
-        <span class="record-income">收入 {{list.income}}</span>
-        <span>支出 {{list.outcome}}</span>
+        <span class="record-income">收入 {{toFixed(list.income)}}</span>
+        <span>支出 {{toFixed(list.outcome)}}</span>
       </div>
       <div class="record" v-for="item in list.items" :key="item.id+'record'">
         <Icon :name="item.tag.name"/>
         <div class="name-money">
           <span>{{item.tag.text}}</span>
           <span class="note">{{item.note}}</span>
-          <span>{{item.type.value}}{{item.amount}}</span>
+          <span>{{item.type.value}}{{toFixed(item.amount)}}</span>
         </div>
       </div>
     </div>
@@ -38,6 +38,10 @@
       } else {
         return day.format('YYYY-M-D');
       }
+    }
+
+    toFixed(num: number) {
+      return num.toFixed(2) - 0;
     }
 
     tagString(tags: Tag[]) {

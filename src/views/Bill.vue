@@ -9,15 +9,15 @@
           </div>
           <div class="income">
             <span>收入</span>
-            <span>{{totalIncome}}</span>
+            <span>{{toFixed(totalIncome)}}</span>
           </div>
           <div class="outcome">
             <span>支出</span>
-            <span>{{totalOutcome}}</span>
+            <span>{{toFixed(totalOutcome)}}</span>
           </div>
           <div class="total">
             <span>总计</span>
-            <span>{{total}}</span>
+            <span>{{toFixed(total)}}</span>
           </div>
         </div>
       </template>
@@ -104,21 +104,24 @@
       result.map(group => {
         group.income = group.items.reduce((sum, item) => {
           if (item.type.value === '+') {
-            return sum + item.amount;
+            return (sum + item.amount);
           }
           return sum;
         }, 0);
         group.outcome = group.items.reduce((sum, item) => {
           if (item.type.value === '-') {
             console.log('-', item.amount);
-            return sum + item.amount;
+            return (sum + item.amount);
           }
           return sum;
         }, 0);
-        console.log('outcome', group.outcome);
       });
 
       return result;
+    }
+
+    toFixed(num: number) {
+      return num.toFixed(2)-0;
     }
 
     created() {
