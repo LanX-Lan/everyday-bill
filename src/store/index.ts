@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import createId from '@/lib/createId';
 import createTagId from '@/lib/createTagId';
+import createIconId from '@/lib/createIconId';
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ const store = new Vuex.Store({
   state: {
     recordList: [],
     tagList: [],
+    iconList: [],
     duplicate: ''
   } as RootState,
   mutations: {
@@ -79,6 +81,18 @@ const store = new Vuex.Store({
     },
     saveTagList(state) {
       window.localStorage.setItem(localStoreTagList, JSON.stringify(state.tagList));
+    },
+    createIcon(state, name: string) {
+      const icon = {type: {text: '', value: ''}, text: '', name: ''} as Tag;
+      icon.name = name;
+      icon.id = createIconId();
+      state.iconList.push(icon);
+    },
+    initIcon(state) {
+      const names = ['bus', 'car', 'cloth', 'fruit', 'health', 'home', 'other', 'prize', 'rice', 'salary', 'stock',];
+      for (let i = 0; i < names.length; i++) {
+        store.commit('createIcon', names[i]);
+      }
     }
   },
 });

@@ -26,6 +26,11 @@
   import Tags from '@/components/money/Tags.vue';
   import Button from '@/components/Button.vue';
 
+  type defaultList = {
+    type: DataSource;
+    text: string;
+    name: string;
+  }
   @Component({
     components: {Tags, Button}
   })
@@ -33,11 +38,10 @@
     type: DataSource = {} as DataSource;
     text = '';
     selectedTag: Tag = {id: 0, type: {text: '支出', value: '-'}, text: '交通', name: 'bus'};
-    tagList: Tag[] = [
-      {id: 1, type: {text: '', value: ''}, text: '交通', name: 'bus'},
-      {id: 2, type: {text: '', value: ''}, text: '水果', name: 'fruit'},
-      {id: 3, type: {text: '', value: ''}, text: '医院', name: 'health'}
-    ];
+
+    get tagList() {
+      return (this.$store.state as RootState).iconList;
+    }
 
     get newTag() {
       return {
@@ -67,6 +71,7 @@
     created() {
       this.type = JSON.parse(this.$route.query.type as string || '{}') as DataSource;
       this.$store.commit('initTagList');
+      this.$store.commit('initIcon');
     }
   }
 </script>

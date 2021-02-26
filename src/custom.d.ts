@@ -17,6 +17,7 @@ type RecordItem = {
 type RootState = {
   recordList: RecordItem[];
   tagList: Tag[];
+  iconList: Tag[];
   duplicate: string;
 }
 type Result = {
