@@ -64,6 +64,7 @@
         }
         window.alert('创建成功');
         this.$router.back();
+        this.$router.replace({path: '/label', query: this.type});
       }
 
     }
@@ -73,7 +74,7 @@
     }
 
     created() {
-      this.type = JSON.parse(this.$route.query.type as string || '{}') as DataSource;
+      this.type = this.$route.query as DataSource;
       this.$store.commit('initTagList');
     }
   }
