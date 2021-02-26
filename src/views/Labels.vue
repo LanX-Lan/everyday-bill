@@ -17,14 +17,15 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import Button from '@/components/Button.vue';
+  import {mixins} from 'vue-class-component';
+  import appHelper from '@/mixins/appHelper';
 
   @Component({
     components: {Button}
   })
-  export default class Labels extends Vue {
+  export default class Labels extends mixins(appHelper) {
     type: DataSource = {
       text: '支出',
       value: '-'

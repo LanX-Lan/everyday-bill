@@ -12,6 +12,7 @@ import Tabs from '@/components/Tabs.vue';
 import PickerDate from '@/components/PickerDate.vue';
 
 import '@/assets/style/reset.scss';
+
 Vue.use(Picker);
 
 Vue.config.productionTip = false;
@@ -25,3 +26,8 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app');
+
+
+if (document.documentElement.clientWidth > 500) {
+  window.alert('请使用手机打开本页面，以保住浏览效果');
+}

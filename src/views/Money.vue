@@ -17,7 +17,6 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import Layout from '@/components/Layout.vue';
   import Tags from '@/components/money/Tags.vue';
@@ -25,11 +24,13 @@
   import Tabs from '@/components/Tabs.vue';
   import NumberPad from '@/components/money/NumberPad.vue';
   import clone from '@/lib/clone';
+  import appHelper from '@/mixins/appHelper';
+  import {mixins} from 'vue-class-component';
 
   @Component({
     components: {NumberPad, Tabs, Note, Tags, Layout}
   })
-  export default class Money extends Vue {
+  export default class Money extends mixins(appHelper) {
 
     types: DataSource[] = [{text: '支出', value: '-',}, {text: '收入', value: '+',}];
     record: RecordItem = {

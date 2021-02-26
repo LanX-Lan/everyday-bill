@@ -30,16 +30,17 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import RecordPad from '@/components/RecordPad.vue';
   import clone from '@/lib/clone';
   import dayjs from 'dayjs';
+  import {mixins} from 'vue-class-component';
+  import appHelper from '@/mixins/appHelper';
 
   @Component({
     components: {RecordPad}
   })
-  export default class Bill extends Vue {
+  export default class Bill extends mixins(appHelper) {
     show = false;
     pickerDate: Date = new Date();
 

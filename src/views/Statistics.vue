@@ -9,15 +9,16 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import Layout from '@/components/Layout.vue';
+  import appHelper from '@/mixins/appHelper';
+  import {mixins} from 'vue-class-component';
 
 
   @Component({
     components: {Layout}
   })
-  export default class Statistics extends Vue {
+  export default class Statistics extends mixins(appHelper) {
 
   }
 </script>
