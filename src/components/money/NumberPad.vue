@@ -65,7 +65,7 @@
     ok() {
       this.$emit('update:value', parseFloat(this.innerOutput));
       this.$emit('submit');
-      this.innerOutput = '0';
+      // this.innerOutput = '0';
     }
 
     @Watch('innerOutput')

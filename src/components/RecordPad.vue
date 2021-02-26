@@ -41,7 +41,7 @@
     }
 
     toFixed(num: number) {
-      return num.toFixed(2) - 0;
+      return parseFloat(num.toFixed(2));
     }
 
     tagString(tags: Tag[]) {

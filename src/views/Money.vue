@@ -59,8 +59,9 @@
         window.alert('保存成功');
         this.record.tag = {} as Tag;
         this.record.note = '';
+        this.output = '0';
       } else {
-        window.alert('请选择至少一个标签');
+        window.alert('请选择一个标签');
       }
     }
 
