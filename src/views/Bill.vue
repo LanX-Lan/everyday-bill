@@ -105,15 +105,18 @@
           if (item.type.value === '+') {
             return sum + item.amount;
           }
-          return 0;
+          return sum;
         }, 0);
         group.outcome = group.items.reduce((sum, item) => {
           if (item.type.value === '-') {
+            console.log('-', item.amount);
             return sum + item.amount;
           }
-          return 0;
+          return sum;
         }, 0);
+        console.log('outcome', group.outcome);
       });
+
       return result;
     }
 
