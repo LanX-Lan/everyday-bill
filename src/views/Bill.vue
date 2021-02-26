@@ -136,6 +136,7 @@
     color: #fff;
     font-size: 14px;
     padding: 10px 0;
+    overflow-wrap: break-word;
 
     > div:nth-child(n) {
       display: flex;

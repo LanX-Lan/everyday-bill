@@ -7,7 +7,7 @@ type Tag = {
 type DataSource = { text: string; value: string }
 type RecordItem = {
   id?: number;
-  tags: Tag[];
+  tag: Tag;
   type: DataSource;
   note: string;
   amount: number;

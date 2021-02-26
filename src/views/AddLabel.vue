@@ -3,7 +3,7 @@
     <div class="bar-wrapper">
       <span>分类名称：</span>
       <label>
-        <input placeholder="点击输入" v-model="text"/>
+        <input placeholder="点击输入" v-model="text" maxlength="5"/>
       </label>
     </div>
     <div class="bar-wrapper">
@@ -53,7 +53,7 @@
       } else if (this.selectedTag.id === 0) {
         window.alert('请选择一个图标');
       } else {
-        this.$store.commit('updateTagList', this.newTag);
+        this.$store.commit('createTagList', this.newTag);
         if ((this.$store.state as RootState).duplicate === 'duplicate') {
           window.alert('标签名重复了');
           return;

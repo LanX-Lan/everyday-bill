@@ -7,12 +7,11 @@
         <span>支出 {{list.outcome}}</span>
       </div>
       <div class="record" v-for="item in list.items" :key="item.id+'record'">
-
+        <Icon :name="item.tag.name"/>
         <div class="name-money">
-          <span>{{tagString(item.tags)}}</span>
+          <span>{{item.tag.text}}</span>
           <span class="note">{{item.note}}</span>
           <span>{{item.type.value}}{{item.amount}}</span>
-
         </div>
       </div>
     </div>
@@ -64,6 +63,10 @@
         padding: 10px 10px;
         font-size: 14px;
 
+        > :nth-child(n) {
+          overflow-wrap: break-word;
+        }
+
         > .record-income {
           margin-left: auto;
           padding-right: 10px;
@@ -89,6 +92,11 @@
           padding: 15px 0;
           border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 
+          > span {
+            max-width: 200px;
+            overflow-wrap: break-word;
+          }
+
           > .note {
             margin-right: auto;
             font-size: 12px;
@@ -98,8 +106,8 @@
 
         ::v-deep .icon {
           color: $bg;
-          height: 42px;
-          width: 42px;
+          height: 36px;
+          width: 36px;
         }
 
         &:last-child .name-money {

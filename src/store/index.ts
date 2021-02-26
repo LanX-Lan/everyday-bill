@@ -32,8 +32,9 @@ const store = new Vuex.Store({
     },
     initTagList(state) {
       state.tagList = JSON.parse(window.localStorage.getItem(localStoreTagList) || '[]') as Tag[];
+
     },
-    updateTagList(state, tag: Tag) {
+    createTagList(state, tag: Tag) {
       state.duplicate = '';
       const texts = state.tagList.filter(item => tag.type.value === item.type.value).map(tag => tag.text);
       if (texts.indexOf(tag.text) >= 0) {

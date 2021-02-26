@@ -4,7 +4,7 @@
       <template :slot="'header'">
         <Tabs :data-source="types" :value.sync="record.type"/>
       </template>
-      <Tags :tag-list="tagList" :selected.sync="record.tags">
+      <Tags :tag-list="tagList" :selected.sync="record.tag" :single="true">
         <router-link to="/label">
           <Icon name="addTag"/>
           <span>新增</span>
@@ -33,7 +33,7 @@
 
     types: DataSource[] = [{text: '支出', value: '-',}, {text: '收入', value: '+',}];
     record: RecordItem = {
-      tags: [],
+      tag: {} as Tag,
       type: {text: '支出', value: '-'},
       note: '',
       noteDate: new Date(),
@@ -50,11 +50,13 @@
     }
 
     onSubmit() {
-      if (this.record.tags.length > 0) {
+      const tag = this.record.tag
+      if (Object.keys(tag).length > 0 && tag.constructor === Object) {
+        console.log(this.record.tag);
         const record2 = clone(this.record) as RecordItem;
         this.$store.commit('updateRecordList', record2);
         window.alert('保存成功');
-        this.record.tags = [];
+        this.record.tag = {} as Tag;
         this.record.note = '';
       } else {
         window.alert('请选择至少一个标签');
