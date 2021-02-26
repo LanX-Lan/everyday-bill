@@ -6,7 +6,7 @@
         <span class="record-income">收入 {{toFixed(list.income)}}</span>
         <span>支出 {{toFixed(list.outcome)}}</span>
       </div>
-      <div class="record" v-for="item in list.items" :key="item.id+'record'">
+      <div class="record" v-for="item in list.items" :key="item.createAt">
         <Icon :name="item.tag.name"/>
         <div class="name-money">
           <span>{{item.tag.text}}</span>
