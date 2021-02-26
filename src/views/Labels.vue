@@ -40,6 +40,7 @@
     }
 
     created() {
+      this.type = this.$route.query as DataSource;
       this.$store.commit('initTagList');
     }
   }

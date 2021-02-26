@@ -5,10 +5,10 @@
         <Tabs :data-source="types" :value.sync="record.type"/>
       </template>
       <Tags :tag-list="tagList" :selected.sync="record.tag" :single="true">
-        <router-link to="/label">
-          <Icon name="addTag"/>
-          <span>新增</span>
-        </router-link>
+        <div @click="$router.push({path:'/label',query:record.type})" class="router">
+          <Icon name="edit"/>
+          <span>修改</span>
+        </div>
       </Tags>
       <Note :number="output" :note.sync="record.note" :date.sync="record.noteDate"/>
       <NumberPad :value.sync="record.amount" :output.sync="output" @submit="onSubmit"/>
@@ -50,7 +50,7 @@
     }
 
     onSubmit() {
-      const tag = this.record.tag
+      const tag = this.record.tag;
       if (Object.keys(tag).length > 0 && tag.constructor === Object) {
         console.log(this.record.tag);
         const record2 = clone(this.record) as RecordItem;
@@ -92,5 +92,12 @@
 
   ::v-deep .mu-picker .mu-datepicker {
     box-shadow: 5px 5px 5px $color-shadow;
+  }
+
+  .router {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 </style>

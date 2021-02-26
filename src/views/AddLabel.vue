@@ -68,10 +68,13 @@
 
     }
 
+    mounted() {
+      this.$store.commit('initIcon');
+    }
+
     created() {
       this.type = JSON.parse(this.$route.query.type as string || '{}') as DataSource;
       this.$store.commit('initTagList');
-      this.$store.commit('initIcon');
     }
   }
 </script>

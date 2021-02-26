@@ -89,9 +89,15 @@ const store = new Vuex.Store({
       state.iconList.push(icon);
     },
     initIcon(state) {
-      const names = ['bus', 'car', 'cloth', 'fruit', 'health', 'home', 'other', 'prize', 'rice', 'salary', 'stock',];
-      for (let i = 0; i < names.length; i++) {
-        store.commit('createIcon', names[i]);
+      const names = [
+        'bus', 'car', 'cloth', 'fruit', 'health', 'home', 'other', 'prize', 'rice', 'salary', 'stock', 'education',
+        'child', 'money', 'drink', 'camera', 'computer', 'wine', 'exercise', 'phone', 'wallet', 'redpacket',
+        'reimbursement', 'travel', 'game'
+      ];
+      if (state.iconList.length <= 0) {
+        for (let i = 0; i < names.length; i++) {
+          store.commit('createIcon', names[i]);
+        }
       }
     }
   },

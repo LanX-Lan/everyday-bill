@@ -73,6 +73,8 @@
     display: flex;
     flex-wrap: wrap;
     padding: 15px;
+    max-height: 409px;
+    overflow: auto;
 
     ::v-deep .icon {
       height: 35px;
@@ -83,6 +85,10 @@
       padding: 15px;
       text-align: center;
       width: 20%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
       &.selectedTags {
         color: $bg;
