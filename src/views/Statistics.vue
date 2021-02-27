@@ -102,7 +102,7 @@
     padding: 10px;
     font-size: $fs;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-content: center;
 
     > .icon {
