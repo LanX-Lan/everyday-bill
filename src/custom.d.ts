@@ -1,9 +1,11 @@
+
+
 type Tag = {
   id?: number;
   type: DataSource;
   text: string;
   name: string;
-}
+};
 type DataSource = { text: string; value: string }
 type RecordItem = {
   id?: number;
@@ -27,3 +29,4 @@ type Result = {
   income?: number;
   total?: number;
 }
+

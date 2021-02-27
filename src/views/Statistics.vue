@@ -5,16 +5,21 @@
         <Tabs :data-source="dataSource" :value.sync="type"/>
       </template>
       <template>
-        <div ref="echart" :style="{width:chartStyle.width,height: chartStyle.height}">11</div>
-        <div class="title">202年2月支出统计</div>
+        <SEchart :data-list="noteList" :type="type"/>
+        <div class="title" @click="pickerShow = true">
+          {{beautyDate(pickerAt)}}支出统计
+          <Icon name="down"/>
+        </div>
         <div class="bar-wrapper" v-for="note in noteList" :key="note.createAt">
           <Icon :name="note.tag.name"/>
           <div class="record">
             <span>{{note.tag.text}}</span>
-            <span>42.87%</span>
+            <span>{{percent(note.amount)}}</span>
             <span>{{note.amount}}</span>
           </div>
         </div>
+        <PickerDate :picker-date.sync="pickerAt" :show.sync="pickerShow" picker-type="month"/>
+        <div v-if="noteList.length<=0" class="no-data">暂无数据</div>
       </template>
 
     </Layout>
@@ -28,24 +33,28 @@
   import {mixins} from 'vue-class-component';
   import dayjs from 'dayjs';
   import clone from '@/lib/clone';
+  import SEchart from '@/components/SEchart.vue';
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const customParseFormat = require('dayjs/plugin/customParseFormat');
 
   @Component({
-    components: {Layout}
+    components: {SEchart, Layout}
   })
   export default class Statistics extends mixins(appHelper) {
     dataSource: DataSource[] = [{text: '支出', value: '-'}, {text: '收入', value: '+'}];
     type: DataSource = {text: '支出', value: '-'};
-    chartStyle = {};
+    pickerAt: Date = new Date();
+    pickerShow = false;
 
     get noteList() {
       dayjs.extend(customParseFormat);
       const {recordList} = this.$store.state as RootState;
-      const date = dayjs('2021-02-02', 'YYYY-DD-MM');
       const newList = clone(recordList)
         .filter((record: RecordItem) => {
-          return dayjs(record.noteDate).isSame(dayjs(date), 'month');
+          return record.type.value === this.type.value;
+        })
+        .filter((record: RecordItem) => {
+          return dayjs(record.noteDate).isSame(dayjs(this.pickerAt), 'month');
         }) as RecordItem[];
       let result: RecordItem[] = [];
       if (newList.length > 0) {
@@ -64,10 +73,15 @@
       return result.sort((a: RecordItem, b: RecordItem) => {return b.amount - a.amount;});
     }
 
-    mounted() {
-      const chart = this.$refs.echart as HTMLDivElement;
-      console.log(chart.clientWidth);
-      this.chartStyle = {width: chart.clientWidth + 'px', height: chart.clientWidth / 2 + 'px'};
+    percent(number: number) {
+      const total = this.noteList.reduce((sum: number, item: RecordItem) => {
+        return sum + item.amount;
+      }, 0);
+      return parseFloat(((number / total) * 100).toFixed(2)) + '%';
+    }
+
+    beautyDate(date: Date) {
+      return dayjs(date).format('YYYY年MM月');
     }
 
     created() {
@@ -87,6 +101,14 @@
     background: $title-bg;
     padding: 10px;
     font-size: $fs;
+    display: flex;
+    justify-content: start;
+    align-content: center;
+
+    > .icon {
+      width: 22px;
+      height: 22px;
+    }
   }
 
   .bar-wrapper {
@@ -109,5 +131,12 @@
       justify-content: space-between;
       border-bottom: 1px solid $border-color;
     }
+
+
+  }
+
+  .no-data {
+    text-align: center;
+    padding-top: 30px;
   }
 </style>

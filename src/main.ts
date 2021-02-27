@@ -10,10 +10,13 @@ import {Picker} from 'muse-ui';
 import 'muse-ui/dist/muse-ui.css';
 import Tabs from '@/components/Tabs.vue';
 import PickerDate from '@/components/PickerDate.vue';
+import * as Echarts from 'echarts';
 
 import '@/assets/style/reset.scss';
 
 Vue.use(Picker);
+
+Vue.prototype.$echarts = Echarts;
 
 Vue.config.productionTip = false;
 Vue.component('Layout', Layout);
