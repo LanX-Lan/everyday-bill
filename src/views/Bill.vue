@@ -21,9 +21,8 @@
           </div>
         </div>
       </template>
-      <template :slot="'default'">
-        <RecordPad :class-prefix="'record'" :data-source="groupList"/>
-      </template>
+      <RecordPad :class-prefix="'record'" :data-source="groupList"/>
+      <NotDate v-if="groupList.length<=0"/>
       <PickerDate :show.sync="show" :picker-date.sync="pickerDate" :picker-type="'month'"/>
     </Layout>
   </div>
@@ -36,9 +35,10 @@
   import dayjs from 'dayjs';
   import {mixins} from 'vue-class-component';
   import appHelper from '@/mixins/appHelper';
+  import NotDate from '@/components/NotDate.vue';
 
   @Component({
-    components: {RecordPad}
+    components: {NotDate, RecordPad}
   })
   export default class Bill extends mixins(appHelper) {
     show = false;
@@ -55,7 +55,7 @@
     get totalOutcome() {
       let sum = 0;
       for (let i = 0; i < this.groupList.length; i++) {
-        if (this.changedDate.isSame(dayjs(this.groupList[i].title), 'month')) {
+        if (this.changedDate.isSame(dayjs(this.groupList[i].title), 'month') && this.groupList[i]) {
           sum -= this.groupList[i].outcome!;
         }
       }
@@ -162,5 +162,4 @@
       padding-left: 20px;
     }
   }
-
 </style>

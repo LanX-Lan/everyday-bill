@@ -58,12 +58,13 @@
     overflow: auto;
     flex-grow: 1;
 
+
     .record-item {
       > .record-title {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #f3f3f3;
+        background: $title-bg;
         padding: 10px 10px;
         font-size: 14px;
 
