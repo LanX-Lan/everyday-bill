@@ -73,7 +73,7 @@
     display: flex;
     flex-wrap: wrap;
     padding: 15px;
-    max-height: 409px;
+    /*max-height: 409px;*/
     overflow: auto;
 
     ::v-deep .icon {

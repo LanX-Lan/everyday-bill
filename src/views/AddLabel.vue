@@ -21,11 +21,10 @@
 </template>
 
 <script lang="ts">
+  import Vue from 'vue'
   import {Component} from 'vue-property-decorator';
   import Tags from '@/components/money/Tags.vue';
   import Button from '@/components/Button.vue';
-  import appHelper from '@/mixins/appHelper';
-  import {mixins} from 'vue-class-component';
 
   type defaultList = {
     type: DataSource;
@@ -35,7 +34,7 @@
   @Component({
     components: {Tags, Button}
   })
-  export default class EditLabel extends mixins(appHelper) {
+  export default class EditLabel extends Vue {
     type: DataSource = {} as DataSource;
     text = '';
     selectedTag: Tag = {id: 0, type: {text: '支出', value: '-'}, text: '交通', name: 'bus'};

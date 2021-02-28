@@ -7,7 +7,7 @@
           <Icon name="left"/>
         </div>
         <h3>
-          天天记账
+          记一记
         </h3>
       </div>
       <slot name="header"/>
