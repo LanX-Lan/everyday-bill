@@ -60,6 +60,8 @@
         this.record.tag = {} as Tag;
         this.record.note = '';
         this.output = '0';
+        this.record.amount = 0;
+        console.log(this.record);
       } else {
         window.alert('请选择一个标签');
       }

@@ -68,8 +68,16 @@
       // this.innerOutput = '0';
     }
 
+    @Watch('output')
+    onChangeOutput() {
+      if (this.output === '0') {
+        this.innerOutput = '0';
+      }
+    }
+
     @Watch('innerOutput')
     onChangeInnerOutput() {
+      console.log(this.innerOutput);
       this.$emit('update:output', this.innerOutput);
     }
   }
