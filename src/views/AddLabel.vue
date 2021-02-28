@@ -65,7 +65,7 @@
         }
         window.alert('创建成功');
         this.$router.back();
-        this.$router.replace({path: '/label', query: this.type});
+        this.$router.replace({path: '/money/label', query: this.type});
       }
 
     }

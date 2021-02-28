@@ -3,6 +3,10 @@ import VueRouter, {RouteConfig} from 'vue-router';
 import NotFound from '@/views/NotFound.vue';
 import Labels from '@/views/Labels.vue';
 import AddLabel from '@/views/AddLabel.vue';
+import Money from '@/views/Money.vue';
+import Bill from '@/views/Bill.vue';
+import Statistics from '@/views/Statistics.vue';
+import EditBill from '@/views/EditBill.vue';
 
 
 Vue.use(VueRouter);
@@ -15,27 +19,32 @@ const routes: Array<RouteConfig> = [
   {
     path: '/money',
     name: 'Money',
-    component: () => import('@/views/Money.vue')
+    component: Money
   },
   {
     path: '/bill',
     name: 'Bill',
-    component: () => import('@/views/Bill.vue'),
+    component: Bill,
   },
   {
     path: '/statistics',
     name: 'Statistics',
-    component: () => import('@/views/Statistics.vue'),
+    component: Statistics,
   },
   {
-    path:'/label',
+    path:'/money/label',
     name: 'Label',
     component:Labels,
   },
   {
-    path:'/addLabel/',
+    path:'/money/label/addLabel/',
     name: 'AddLabel',
     component: AddLabel,
+  },
+  {
+    path:'/bill/editBill',
+    name:'EditBill',
+    component:EditBill,
   },
   {
     path: '*',

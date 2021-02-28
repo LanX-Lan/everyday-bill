@@ -5,7 +5,7 @@
         <Tabs :data-source="types" :value.sync="record.type"/>
       </template>
       <Tags :tag-list="tagList" :selected.sync="record.tag" :single="true">
-        <div @click="$router.push({path:'/label',query:record.type})" class="router">
+        <div @click="$router.push({path:'/money/label',query:record.type})" class="router">
           <Icon name="edit"/>
           <span>修改</span>
         </div>

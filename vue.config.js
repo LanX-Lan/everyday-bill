@@ -14,11 +14,9 @@ module.exports = {
     //const svgRule = config.module.rule('svg')
     //svgRule.uses.clear()
     config.module
-      .rule('svg-sprite-loader')
+      .rule('svg-sprite')
       .test(/\.svg$/)
-      .include
-      .add(dir) //处理svg目录
-      .end()
+      .include.add(dir).end()
       .use('svg-sprite-loader')
       .loader('svg-sprite-loader')
       .options({

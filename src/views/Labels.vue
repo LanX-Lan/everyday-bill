@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <Button @click="$router.push({path: `/addLabel/`,query:type})">新增标签</Button>
+    <Button @click="$router.push({path: `/money/label/addLabel/`,query:type})">新增标签</Button>
   </Layout>
 </template>
 
