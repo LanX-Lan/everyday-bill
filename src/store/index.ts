@@ -22,7 +22,6 @@ const store = new Vuex.Store({
       state.recordList = JSON.parse(window.localStorage.getItem(localStoreRecordList) || '[]') as RecordItem[];
     },
     updateRecordList(state, record: RecordItem) {
-      store.commit('initRecordList');
       const record2 = clone(record) as RecordItem;
       record2.createAt = new Date();
       record2.id = createId();
@@ -31,6 +30,11 @@ const store = new Vuex.Store({
     },
     saveRecordList(state) {
       window.localStorage.setItem(localStoreRecordList, JSON.stringify(state.recordList));
+    },
+    removeRecord(state, id: number) {
+      const index = state.recordList.findIndex(item => item.id === id);
+      state.recordList.splice(index, 1);
+      store.commit('saveRecordList');
     },
     initTagList(state) {
       state.tagList = JSON.parse(window.localStorage.getItem(localStoreTagList) || '[]') as Tag[];

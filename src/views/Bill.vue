@@ -78,14 +78,12 @@
 
     get groupList() {
       const recordList = this.recordList;
-      console.log(recordList);
       const newList = clone(recordList)
         .filter((record: RecordItem) => {return this.changedDate.isSame(dayjs(record.noteDate), 'month');})
         .sort(
           (a: RecordItem, b: RecordItem) => {
             return dayjs(b.noteDate).valueOf() - dayjs(a.noteDate).valueOf();
           });
-      console.log('newList', newList);
       let result: Result[] = [];
       if (newList.length > 0) {
         result = [{title: newList[0].noteDate, items: [newList[0]]}];
@@ -98,9 +96,7 @@
             result.push({title: current.noteDate, items: [current]});
           }
         }
-        console.log('result', result);
       }
-      console.log(result);
       result.map(group => {
         group.income = group.items.reduce((sum, item) => {
           if (item.type.value === '+') {
@@ -110,7 +106,6 @@
         }, 0);
         group.outcome = group.items.reduce((sum, item) => {
           if (item.type.value === '-') {
-            console.log('-', item.amount);
             return (sum + item.amount);
           }
           return sum;

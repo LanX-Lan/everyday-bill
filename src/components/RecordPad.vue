@@ -6,7 +6,7 @@
         <span class="record-income">收入 {{toFixed(list.income)}}</span>
         <span>支出 {{toFixed(list.outcome)}}</span>
       </div>
-      <div class="record" v-for="item in list.items" :key="item.createAt">
+      <div class="record" v-for="item in list.items" :key="item.createAt" @click="toEditBill(item)">
         <Icon :name="item.tag.name"/>
         <div class="name-money">
           <span>{{item.tag.text}}</span>
@@ -47,6 +47,10 @@
     tagString(tags: Tag[]) {
       const tagNames: string[] = tags.map(tag => tag.text);
       return tags.length === 0 ? '无' : tagNames.join(',');
+    }
+
+    toEditBill(item: RecordItem) {
+      this.$router.push({path: '/bill/editBill', query: {record: JSON.stringify(item || '{}')}});
     }
   }
 </script>
