@@ -53,7 +53,6 @@
     onSubmit() {
       const tag = this.record.tag;
       if (Object.keys(tag).length > 0 && tag.constructor === Object) {
-        console.log(this.record.tag);
         const record2 = clone(this.record) as RecordItem;
         this.$store.commit('updateRecordList', record2);
         window.alert('保存成功');
@@ -61,7 +60,6 @@
         this.record.note = '';
         this.output = '0';
         this.record.amount = 0;
-        console.log(this.record);
       } else {
         window.alert('请选择一个标签');
       }

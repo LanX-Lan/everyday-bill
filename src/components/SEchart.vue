@@ -82,8 +82,6 @@
       } else {
         option.title.text = '';
       }
-
-      console.log(this.optionsData);
       return option;
     }
 

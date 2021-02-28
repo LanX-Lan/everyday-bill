@@ -77,7 +77,6 @@
 
     @Watch('innerOutput')
     onChangeInnerOutput() {
-      console.log(this.innerOutput);
       this.$emit('update:output', this.innerOutput);
     }
   }
