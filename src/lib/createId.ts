@@ -1,5 +1,5 @@
 const localStorageKey = '_idEveryMax'
-let id: number = parseInt(window.localStorage.getItem('localStorageKey')||'0');
+let id: number = parseInt(window.localStorage.getItem(localStorageKey)||'0');
 function createId(){
   id++;
   window.localStorage.setItem(localStorageKey,JSON.stringify(id))
