@@ -15,7 +15,7 @@
     <div class="container">
       <slot/>
     </div>
-    <Nav v-if="nav"/>
+    <Nav v-if="nav" v-show="navShow"/>
   </div>
 </template>
 
@@ -29,7 +29,8 @@
     back?: boolean | undefined;
     @Prop({default: true, type: Boolean})
     nav?: boolean | undefined;
-    @Prop(String) classPrefix!: string
+    @Prop(String) classPrefix!: string;
+    @Prop({default: true}) navShow!: boolean;
   }
 </script>
 

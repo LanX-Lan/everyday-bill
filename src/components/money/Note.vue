@@ -3,12 +3,18 @@
     <div class="note">
       <label>
         备注
-        <input placeholder="写点什么吧" @input="onInput($event.target.value)" :value="note" />
+        <input
+          placeholder="写点什么吧"
+          @input="onInput($event.target.value)"
+          :value="note"
+          @click="$emit('update:isShow',false)"
+          @blur="$emit('update:isShow',true)"
+        />
       </label>
     </div>
     <div class="date-money">
       <span @click="show=true">{{beautyDate}} <Icon name="down"/></span>
-      <span class="number">{{number}}</span>
+      <span class="number" @click="$emit('update:isShow',true)">{{number}}</span>
     </div>
     <PickerDate :show.sync="show" @update:pickerDate="updatePickerDate"/>
   </div>

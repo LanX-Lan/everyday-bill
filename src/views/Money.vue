@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Layout>
+    <Layout :nav-show="isShow">
       <template :slot="'header'">
         <Tabs :data-source="types" :value.sync="record.type"/>
       </template>
@@ -10,8 +10,17 @@
           <span>修改</span>
         </div>
       </Tags>
-      <Note :number="output" :note.sync="record.note" :date.sync="record.noteDate"/>
-      <NumberPad :value.sync="record.amount" :output.sync="output" @submit="onSubmit"/>
+      <Note :number="output"
+            :note.sync="record.note"
+            :date.sync="record.noteDate"
+            @update:isShow="(value)=>{isShow=value}"
+      />
+      <NumberPad
+        v-show="isShow"
+        :value.sync="record.amount"
+        :output.sync="output"
+        @submit="onSubmit"
+      />
     </Layout>
   </div>
 </template>
@@ -41,6 +50,8 @@
       amount: 0
     };
     output = '0';
+    isShow = true;
+    height = document.body.clientHeight;
 
     get tagList() {
       return (this.$store.state as RootState).tagList.filter(tag => tag.type.value === this.record.type.value);
@@ -68,6 +79,10 @@
     created() {
       this.$store.commit('initTagList');
       this.$store.commit('initRecordList');
+      window.addEventListener('resize', () => {
+        document.body.clientHeight < this.height ? this.isShow = false : this.isShow = true;
+        console.log(document.body.clientHeight);
+      });
     }
   }
 </script>
