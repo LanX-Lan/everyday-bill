@@ -42,8 +42,10 @@
     }
 
     remove(id: number) {
-      this.$store.commit('removeRecord', id);
-      this.$router.back();
+      if (window.confirm("确定要删除这个记录？")) {
+        this.$store.commit('removeRecord', id);
+        this.$router.back();
+      }
     }
 
     created() {
