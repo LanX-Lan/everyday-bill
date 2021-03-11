@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <router-view/>
+    <router-view/>
   </div>
 </template>
 
@@ -17,5 +17,12 @@
     line-height: 1.5;
     background: #ffffff;
     position: relative;
+  }
+
+  @media screen and (min-width: 500px) {
+    #app {
+      margin: auto;
+      max-width: 500px;
+    }
   }
 </style>
