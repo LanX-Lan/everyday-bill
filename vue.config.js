@@ -6,7 +6,7 @@ const dir = path.resolve(__dirname, 'src/assets/icons')
 
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/every-day/'
+    ? '/everyday-bill-deploy/'
     : '/',
   lintOnSave: false,
   chainWebpack: config => {
